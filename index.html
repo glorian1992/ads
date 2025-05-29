@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Ads ROI Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Meta Ads ROI Calculator</h1>
+            <p>Llogarit ROI-në për të gjitha objektivet e fushatave në Meta Ads</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('conversion')">💰 Conversion</button>
+            <button class="tab" onclick="showTab('traffic')">🚗 Traffic</button>
+            <button class="tab" onclick="showTab('reach')">📱 Reach</button>
+            <button class="tab" onclick="showTab('awareness')">👁️ Awareness</button>
+        </div>
+        
+        <!-- Conversion Tab -->
+        <div id="conversion" class="tab-content active">
+            <h2>💰 Conversion Campaign ROI</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="conv-spend">💸 Total Spend (€)</label>
+                    <input type="number" id="conv-spend" placeholder="1000" oninput="calculateConversionROI()">
+                </div>
+                <div class="form-group">
+                    <label for="conv-revenue">💰 Total Revenue (€)</label>
+                    <input type="number" id="conv-revenue" placeholder="3000" oninput="calculateConversionROI()">
+                </div>
+                <div class="form-group">
+                    <label for="conv-conversions">🎯 Total Conversions</label>
+                    <input type="number" id="conv-conversions" placeholder="50" oninput="calculateConversionROI()">
+                </div>
+                <div class="form-group">
+                    <label for="conv-clicks">👆 Total Clicks</label>
+                    <input type="number" id="conv-clicks" placeholder="500" oninput="calculateConversionROI()">
+                </div>
+            </div>
+            
+            <div class="results" id="conv-results">
+                <h3>📈 Rezultatet e Conversion Campaign</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">ROI (%)</div>
+                        <div class="metric-value" id="conv-roi">0%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value" id="conv-roas">0:1</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per Conversion</div>
+                        <div class="metric-value" id="conv-cpc">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Conversion Rate</div>
+                        <div class="metric-value" id="conv-rate">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Traffic Tab -->
+        <div id="traffic" class="tab-content">
+            <h2>🚗 Traffic Campaign ROI</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="traffic-spend">💸 Total Spend (€)</label>
+                    <input type="number" id="traffic-spend" placeholder="500" oninput="calculateTrafficROI()">
+                </div>
+                <div class="form-group">
+                    <label for="traffic-clicks">👆 Total Clicks</label>
+                    <input type="number" id="traffic-clicks" placeholder="2000" oninput="calculateTrafficROI()">
+                </div>
+                <div class="form-group">
+                    <label for="traffic-conversions">🎯 Conversions from Traffic</label>
+                    <input type="number" id="traffic-conversions" placeholder="40" oninput="calculateTrafficROI()">
+                </div>
+                <div class="form-group">
+                    <label for="traffic-value">💰 Average Conversion Value (€)</label>
+                    <input type="number" id="traffic-value" placeholder="50" oninput="calculateTrafficROI()">
+                </div>
+            </div>
+            
+            <div class="results" id="traffic-results">
+                <h3>📈 Rezultatet e Traffic Campaign</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">ROI (%)</div>
+                        <div class="metric-value" id="traffic-roi">0%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per Click</div>
+                        <div class="metric-value" id="traffic-cpc">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per Conversion</div>
+                        <div class="metric-value" id="traffic-cpa">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Conversion Rate</div>
+                        <div class="metric-value" id="traffic-rate">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reach Tab -->
+        <div id="reach" class="tab-content">
+            <h2>📱 Reach Campaign ROI</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="reach-spend">💸 Total Spend (€)</label>
+                    <input type="number" id="reach-spend" placeholder="300" oninput="calculateReachROI()">
+                </div>
+                <div class="form-group">
+                    <label for="reach-reach">📱 Total Reach</label>
+                    <input type="number" id="reach-reach" placeholder="50000" oninput="calculateReachROI()">
+                </div>
+                <div class="form-group">
+                    <label for="reach-impressions">👀 Total Impressions</label>
+                    <input type="number" id="reach-impressions" placeholder="80000" oninput="calculateReachROI()">
+                </div>
+                <div class="form-group">
+                    <label for="reach-ltv">💰 Estimated Customer LTV (€)</label>
+                    <input type="number" id="reach-ltv" placeholder="100" oninput="calculateReachROI()">
+                </div>
+            </div>
+            
+            <div class="results" id="reach-results">
+                <h3>📈 Rezultatet e Reach Campaign</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Cost Per 1K Reach</div>
+                        <div class="metric-value" id="reach-cpr">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per 1K Impressions</div>
+                        <div class="metric-value" id="reach-cpm">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Frequency</div>
+                        <div class="metric-value" id="reach-freq">0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Potential ROI*</div>
+                        <div class="metric-value" id="reach-roi">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Awareness Tab -->
+        <div id="awareness" class="tab-content">
+            <h2>👁️ Brand Awareness ROI</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="aware-spend">💸 Total Spend (€)</label>
+                    <input type="number" id="aware-spend" placeholder="400" oninput="calculateAwarenessROI()">
+                </div>
+                <div class="form-group">
+                    <label for="aware-impressions">👀 Total Impressions</label>
+                    <input type="number" id="aware-impressions" placeholder="100000" oninput="calculateAwarenessROI()">
+                </div>
+                <div class="form-group">
+                    <label for="aware-reach">📱 Total Reach</label>
+                    <input type="number" id="aware-reach" placeholder="60000" oninput="calculateAwarenessROI()">
+                </div>
+                <div class="form-group">
+                    <label for="aware-engagement">❤️ Total Engagement</label>
+                    <input type="number" id="aware-engagement" placeholder="5000" oninput="calculateAwarenessROI()">
+                </div>
+            </div>
+            
+            <div class="results" id="awareness-results">
+                <h3>📈 Rezultatet e Brand Awareness</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-label">Cost Per 1K Impressions</div>
+                        <div class="metric-value" id="aware-cpm">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per 1K Reach</div>
+                        <div class="metric-value" id="aware-cpr">€0</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Engagement Rate</div>
+                        <div class="metric-value" id="aware-er">0%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Cost Per Engagement</div>
+                        <div class="metric-value" id="aware-cpe">€0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Google Sheets Instructions -->
+        <div class="google-sheets-info">
+            <h3>📋 Si të përdorësh këto formula në Google Sheets</h3>
+            <p><strong>Krijo një Google Sheet të re dhe kopjo këto formula:</strong></p>
+            
+            <div class="formula-list">
+                <h4>🔢 Formula për Conversion Campaign:</h4>
+                <p><strong>ROI:</strong> <code>=(Revenue-Spend)/Spend*100</code></p>
+                <p><strong>ROAS:</strong> <code>=Revenue/Spend</code></p>
+                <p><strong>Cost Per Conversion:</strong> <code>=Spend/Conversions</code></p>
+                <p><strong>Conversion Rate:</strong> <code>=Conversions/Clicks*100</code></p>
+                
+                <h4>🔢 Formula për Traffic Campaign:</h4>
+                <p><strong>ROI:</strong> <code>=(Conversions*ConversionValue-Spend)/Spend*100</code></p>
+                <p><strong>CPC:</strong> <code>=Spend/Clicks</code></p>
+                <p><strong>CPA:</strong> <code>=Spend/Conversions</code></p>
+                
+                <h4>🔢 Formula për Reach Campaign:</h4>
+                <p><strong>CPR (1K):</strong> <code>=Spend/(Reach/1000)</code></p>
+                <p><strong>CPM:</strong> <code>=Spend/(Impressions/1000)</code></p>
+                <p><strong>Frequency:</strong> <code>=Impressions/Reach</code></p>
+                
+                <h4>🔢 Formula për Awareness Campaign:</h4>
+                <p><strong>CPM:</strong> <code>=Spend/(Impressions/1000)</code></p>
+                <p><strong>Engagement Rate:</strong> <code>=Engagement/Reach*100</code></p>
+                <p><strong>CPE:</strong> <code>=Spend/Engagement</code></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        function calculateConversionROI() {
+            const spend = parseFloat(document.getElementById('conv-spend').value) || 0;
+            const revenue = parseFloat(document.getElementById('conv-revenue').value) || 0;
+            const conversions = parseFloat(document.getElementById('conv-conversions').value) || 0;
+            const clicks = parseFloat(document.getElementById('conv-clicks').value) || 0;
+            
+            const roi = spend > 0 ? ((revenue - spend) / spend * 100) : 0;
+            const roas = spend > 0 ? (revenue / spend) : 0;
+            const cpc = conversions > 0 ? (spend / conversions) : 0;
+            const convRate = clicks > 0 ? (conversions / clicks * 100) : 0;
+            
+            document.getElementById('conv-roi').textContent = `${roi.toFixed(1)}%`;
+            document.getElementById('conv-roas').textContent = `${roas.toFixed(2)}:1`;
+            document.getElementById('conv-cpc').textContent = `€${cpc.toFixed(2)}`;
+            document.getElementById('conv-rate').textContent = `${convRate.toFixed(1)}%`;
+            
+            // Color coding
+            document.getElementById('conv-roi').className = `metric-value ${roi > 0 ? 'positive' : 'negative'}`;
+        }
+        
+        function calculateTrafficROI() {
+            const spend = parseFloat(document.getElementById('traffic-spend').value) || 0;
+            const clicks = parseFloat(document.getElementById('traffic-clicks').value) || 0;
+            const conversions = parseFloat(document.getElementById('traffic-conversions').value) || 0;
+            const convValue = parseFloat(document.getElementById('traffic-value').value) || 0;
+            
+            const totalValue = conversions * convValue;
+            const roi = spend > 0 ? ((totalValue - spend) / spend * 100) : 0;
+            const cpc = clicks > 0 ? (spend / clicks) : 0;
+            const cpa = conversions > 0 ? (spend / conversions) : 0;
+            const convRate = clicks > 0 ? (conversions / clicks * 100) : 0;
+            
+            document.getElementById('traffic-roi').textContent = `${roi.toFixed(1)}%`;
+            document.getElementById('traffic-cpc').textContent = `€${cpc.toFixed(2)}`;
+            document.getElementById('traffic-cpa').textContent = `€${cpa.toFixed(2)}`;
+            document.getElementById('traffic-rate').textContent = `${convRate.toFixed(1)}%`;
+            
+            document.getElementById('traffic-roi').className = `metric-value ${roi > 0 ? 'positive' : 'negative'}`;
+        }
+        
+        function calculateReachROI() {
+            const spend = parseFloat(document.getElementById('reach-spend').value) || 0;
+            const reach = parseFloat(document.getElementById('reach-reach').value) || 0;
+            const impressions = parseFloat(document.getElementById('reach-impressions').value) || 0;
+            const ltv = parseFloat(document.getElementById('reach-ltv').value) || 0;
+            
+            const cpr = reach > 0 ? (spend / (reach / 1000)) : 0;
+            const cpm = impressions > 0 ? (spend / (impressions / 1000)) : 0;
+            const frequency = reach > 0 ? (impressions / reach) : 0;
+            
+            // Estimated ROI based on 1% conversion rate assumption
+            const estimatedConversions = reach * 0.01;
+            const estimatedRevenue = estimatedConversions * ltv;
+            const potentialROI = spend > 0 ? ((estimatedRevenue - spend) / spend * 100) : 0;
+            
+            document.getElementById('reach-cpr').textContent = `€${cpr.toFixed(2)}`;
+            document.getElementById('reach-cpm').textContent = `€${cpm.toFixed(2)}`;
+            document.getElementById('reach-freq').textContent = frequency.toFixed(2);
+            document.getElementById('reach-roi').textContent = `${potentialROI.toFixed(1)}%`;
+            
+            document.getElementById('reach-roi').className = `metric-value ${potentialROI > 0 ? 'positive' : 'negative'}`;
+        }
+        
+        function calculateAwarenessROI() {
+            const spend = parseFloat(document.getElementById('aware-spend').value) || 0;
+            const impressions = parseFloat(document.getElementById('aware-impressions').value) || 0;
+            const reach = parseFloat(document.getElementById('aware-reach').value) || 0;
+            const engagement = parseFloat(document.getElementById('aware-engagement').value) || 0;
+            
+            const cpm = impressions > 0 ? (spend / (impressions / 1000)) : 0;
+            const cpr = reach > 0 ? (spend / (reach / 1000)) : 0;
+            const engagementRate = reach > 0 ? (engagement / reach * 100) : 0;
+            const cpe = engagement > 0 ? (spend / engagement) : 0;
+            
+            document.getElementById('aware-cpm').textContent = `€${cpm.toFixed(2)}`;
+            document.getElementById('aware-cpr').textContent = `€${cpr.toFixed(2)}`;
+            document.getElementById('aware-er').textContent = `${engagementRate.toFixed(2)}%`;
+            document.getElementById('aware-cpe').textContent = `€${cpe.toFixed(2)}`;
+        }
+        
+        // Initialize with sample calculations
+        window.onload = function() {
+            // Set sample values
+            document.getElementById('conv-spend').value = '1000';
+            document.getElementById('conv-revenue').value = '3000';
+            document.getElementById('conv-conversions').value = '50';
+            document.getElementById('conv-clicks').value = '500';
+            calculateConversionROI();
+        };
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
